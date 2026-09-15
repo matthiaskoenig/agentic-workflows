@@ -18,6 +18,7 @@ nav = [
   { "Concepts" = [
     { "Harnesses" = "concepts/harnesses.md" },
     { "Models" = "concepts/models.md" },
+    { "Claude Code commands" = "concepts/claude-code-commands.md" },
     { "CLAUDE.md and AGENTS.md" = "concepts/instruction-files.md" },
     { "Skills" = "concepts/skills.md" },
     { "Orchestration" = "concepts/orchestration.md" },

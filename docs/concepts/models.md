@@ -4,7 +4,7 @@ icon: lucide/brain
 
 # Models
 
-The [harness](harnesses.md) runs the loop; the **model** does the thinking. The two are separate decisions. A harness usually ties you to one vendor's models, so in practice "which harness" and "which model" are chosen together, but it helps to keep them apart when comparing results or planning for local inference.
+The [harness](harnesses.md) runs the loop; the **model** does the thinking. The two are separate decisions. A harness usually ties you to one vendor's models, so in practice "which harness" and "which model" are chosen together, but it helps to keep them apart when comparing results or planning for local inference. Our aim is one harness for all models; until a provider-agnostic harness is good enough, Claude Code with Claude models is what we use for nearly everything, Codex is a distant second, and OpenCode and pi are being evaluated, see [harnesses](harnesses.md#harnesses-we-use).
 
 ```mermaid
 flowchart LR
