@@ -65,6 +65,27 @@ Covered in detail on [token maxing](best-practices/context-management.md):
 
 See [orchestration](concepts/orchestration.md).
 
+## Code intelligence
+
+Without a language server, the agent finds definitions and references with grep and learns about a type error only when it runs the type checker. [Code intelligence plugins](https://code.claude.com/docs/en/discover-plugins#code-intelligence) connect Claude Code to a Language Server Protocol server, the same machinery behind VS Code's code navigation. The agent then sees errors and warnings right after every edit and fixes them in the same turn, and it can jump to definitions, find references and trace call hierarchies instead of guessing from search results. The plugin page explains what the agent gains and lists the plugin and binary for each language.
+
+Two steps per language: install the language server binary yourself, then install the plugin. The plugin only wires the binary in, it does not install it.
+
+```bash
+# Python: pyright
+uv tool install pyright                    # or: npm install -g pyright
+claude plugin install pyright-lsp@claude-plugins-official
+
+# TypeScript and JavaScript
+npm install -g typescript-language-server typescript
+claude plugin install typescript-lsp@claude-plugins-official
+```
+
+Nothing else to configure. In a session, a line such as `Found 3 new diagnostic issues in 2 files` means the server is working; press `Ctrl+O` to read the diagnostics yourself. If the `/plugin` Errors tab says `Executable not found in $PATH`, the binary is missing or not on the `PATH` that Claude Code sees. Cloud sessions do not start language servers, so this only helps locally.
+
+!!! tip
+    If pyright or the TypeScript server is already installed, Claude Code may offer to install the matching plugin when you open a project. Accept it.
+
 ## Plugin marketplaces
 
 Claude Code plugins are installed from marketplaces:

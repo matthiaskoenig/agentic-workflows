@@ -23,6 +23,8 @@ flowchart LR
     CLR[/clear/] -->|empties| CONV
 ```
 
+For a feel of how this plays out in a real session, watch the [interactive context window timeline](https://code.claude.com/docs/en/context-window) in the Claude Code docs. It replays a session from startup to compaction with token counts for each step, so you see what loads before you type, what each file read and hook adds, and how a subagent keeps large reads out of your window.
+
 ## Rule 1: `/clear` between tasks
 
 The single most effective habit. Start every new task with an empty conversation. If something from the previous task matters, it belongs in a file, a commit message, or the instruction file, not in the conversation.
@@ -76,6 +78,10 @@ A plan that lives in `docs/superpowers/plans/` survives `/clear`, compaction and
 ## What compaction keeps
 
 When the window fills, the harness summarises older turns. The project-root `CLAUDE.md` is re-read from disk afterwards; instructions given only in conversation may be lost. If something must survive, put it in a file.
+
+## Further reading
+
+The official guide on [reducing token usage](https://code.claude.com/docs/en/costs#reduce-token-usage) covers the same ground from the vendor side and adds levers this page does not: picking the model per task, tuning extended thinking, cutting MCP server overhead, and code intelligence plugins for typed languages. Its sections on moving `CLAUDE.md` content into skills and delegating verbose work to subagents are the official version of rules 2 and 3.
 
 ## Checklist
 
