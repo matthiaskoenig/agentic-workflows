@@ -86,6 +86,10 @@ The [engineering standards](../best-practices/engineering-standards.md) page exp
 
 ## Writing instructions that get followed
 
+<iframe style="width: 100%; aspect-ratio: 16 / 9; border: 0;" src="https://www.youtube-nocookie.com/embed/sfE5UQEumdM" title="Writing a CLAUDE.md That Claude Actually Follows" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+Anthropic's [Writing a CLAUDE.md That Claude Actually Follows](https://www.youtube.com/watch?v=sfE5UQEumdM) makes the same points in under three minutes and is the quickest way to get a colleague started on the file.
+
 Instruction files are context, not configuration. The model reads them and tries to comply; nothing enforces them. What helps:
 
 - **Be concrete.** "Run `make test` before committing" beats "test your changes".
@@ -94,7 +98,7 @@ Instruction files are context, not configuration. The model reads them and tries
 - **Remove contradictions.** If two files disagree, the model picks arbitrarily.
 - **Add only after a second mistake.** One-off corrections belong in the conversation. Repeated ones belong in the file.
 - **Move procedures out.** Multi-step workflows belong in a [skill](skills.md), not in the instruction file.
-- **Enforce with hooks.** If something must happen every time (formatting, a lint check), use a harness hook. Instructions ask; hooks enforce.
+- **Enforce with hooks.** If something must happen every time (formatting, a lint check), use a harness hook, see [below](#move-your-hard-rules-to-hooks). Instructions ask; hooks enforce.
 
 ## What does *not* belong in an instruction file
 
@@ -102,6 +106,34 @@ Instruction files are context, not configuration. The model reads them and tries
 - Long architecture essays. Link to a doc instead.
 - Task-specific context. That is what the prompt is for.
 - Secrets. Ever.
+- Rules that must hold every time. Those are hooks, not prose.
+
+## Move your hard rules to hooks
+
+Every instruction file mixes two kinds of lines. Some are judgement calls the model should weigh, such as "prefer simplicity over development cost". Others are rules that must hold on every single turn, such as "run the formatter after each edit" or "never commit to `main`". The second kind does not belong in prose. An instruction is a request the model can forget once the context is long, and it will. Each hard rule in the file is a bet against the model's attention. Move it to a hook and the file gets shorter and more likely to be followed.
+
+A **hook** is a shell command the harness runs itself at a fixed point of the session: when a session starts, before or after a tool call, when the agent wants to stop. Claude Code passes the event as JSON on stdin (for a tool call this includes the tool name and its arguments), and the exit code decides what happens next. Exit 0 lets the action proceed, exit 2 blocks it and shows stderr to the model, so a `PreToolUse` hook can refuse a command and a `Stop` hook can send the agent back to work. Hooks live in the same settings files as permissions, so a hook in `.claude/settings.json` is shared through git with everyone who works on the repository.
+
+The rule most teams write into their instruction file first, "format every file you touch", looks like this as a hook. It runs after every `Edit` and `Write` and does not depend on the model remembering anything:
+
+```json title=".claude/settings.json"
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "jq -r '.tool_input.file_path' | xargs uv run ruff format" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Run `/hooks` in a session to confirm it is registered. The [hooks guide](https://code.claude.com/docs/en/hooks-guide) has ready-made examples for the other rules we see people write into instruction files: blocking edits to protected files, refusing destructive commands, and desktop notifications when the agent waits for input. The [hooks reference](https://code.claude.com/docs/en/hooks) lists every event and the JSON each one receives.
+
+Hooks are specific to Claude Code. Rules that are checked at commit time, such as lint and formatting, belong in [pre-commit](../best-practices/python.md) as well, so they hold whichever harness or human made the change.
 
 ## Auto memory
 

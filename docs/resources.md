@@ -29,6 +29,7 @@ Curated reading and watching. The short list for someone new to agentic coding, 
 ## Videos
 
 - [Agentic workflows walkthrough](https://www.youtube.com/watch?v=MSbacZ99E14) (YouTube): the talk that shaped the orchestration setup on this site.
+- [Writing a CLAUDE.md That Claude Actually Follows](https://www.youtube.com/watch?v=sfE5UQEumdM) (YouTube, Anthropic): what to put in an instruction file and what to leave out, embedded on the [instruction files](concepts/instruction-files.md) page.
 
 ## Skills and plugins
 
