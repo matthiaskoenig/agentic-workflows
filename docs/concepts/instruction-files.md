@@ -108,4 +108,4 @@ Instruction files are context, not configuration. The model reads them and tries
 Claude Code also keeps notes for itself in `~/.claude/projects/<project>/memory/`: your corrections, preferences and project context it cannot derive from the code. It is machine-local, plain markdown, and you can inspect or delete it via `/memory`. Auto memory complements instruction files; it does not replace them. If you want a rule to hold for the whole team, write it in `AGENTS.md`.
 
 !!! note "Learning from sessions"
-    We are evaluating tooling that mines past sessions for recurring corrections and proposes instruction-file updates (listed in the README as "backpass"). Until that is documented, review `/memory` by hand once a week and promote stable learnings into `AGENTS.md`.
+    We are evaluating tooling that mines past sessions for recurring corrections and proposes instruction-file updates (listed in the README as "backpass"). Until that is documented, review `/memory` by hand once a week and promote stable learnings into `AGENTS.md`. See [open questions](../open-questions.md#tools-mentioned-but-not-yet-evaluated).

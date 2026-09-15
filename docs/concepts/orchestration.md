@@ -20,7 +20,7 @@ cd ../myproject-feature-x && claude
 The `superpowers` `using-git-worktrees` skill automates this. Claude Code can also create worktrees for subagents directly.
 
 !!! note
-    The README mentions **treehouse** as a worktree helper. It is not yet documented here; add a section once we have used it.
+    The README mentions **treehouse** as a worktree helper. It is not yet documented here; see [open questions](../open-questions.md#tools-mentioned-but-not-yet-evaluated).
 
 ### Subagents
 
@@ -97,7 +97,7 @@ The plan file is what makes this safe: the agent has a written definition of don
 [lavish-axi](https://axi.md/) gives agents a *human review surface*: the agent generates HTML (a report, a screenshot diff, a preview) and you give feedback directly in the browser. This closes the loop for UI work and for reviewing long outputs without reading raw terminal text.
 
 !!! note "No-mistakes pipeline"
-    The README lists a "no-mistakes pipeline" alongside lavish. The idea is a fixed sequence of automated checks (lint, tests, build, review agent) that every agent change passes before a human looks at it. The concrete implementation is not documented yet.
+    The README lists a "no-mistakes pipeline" alongside lavish. The idea is a fixed sequence of automated checks (lint, tests, build, review agent) that every agent change passes before a human looks at it. The concrete implementation is not documented yet; see [open questions](../open-questions.md#tools-mentioned-but-not-yet-evaluated).
 
 ## Putting it together
 
