@@ -11,6 +11,7 @@ edit_uri = "edit/main/docs/"
 
 nav = [
   { "Home" = "index.md" },
+  { "Introduction" = "introduction.md" },
   { "Getting started" = "getting-started.md" },
   { "Setup checklist" = "setup.md" },
   { "Onboarding a repository" = "onboarding-repository.md" },

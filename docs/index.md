@@ -32,6 +32,8 @@ flowchart LR
     H -->|pull request| R([Reviewed change])
 ```
 
+New to agentic coding altogether? Read the [introduction](introduction.md) first: what changes when you move from autocomplete and chat to an agent, the six concepts that matter, and a 90-minute self-study sequence.
+
 ## Learning path
 
 <div class="grid cards" markdown>
