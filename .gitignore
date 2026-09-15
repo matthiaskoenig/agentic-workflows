@@ -1,0 +1,15 @@
+# zensical build output
+site/
+.cache/
+
+# python
+__pycache__/
+.venv/
+
+# editors
+.idea/
+.vscode/
+*.swp
+
+# personal agent instructions
+CLAUDE.local.md
