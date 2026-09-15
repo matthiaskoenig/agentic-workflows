@@ -6,6 +6,8 @@ icon: lucide/rocket
 
 This page takes you from a clean machine to a working agent setup that matches the rest of this site. Budget about an hour.
 
+If you only want the list of things to install, with commands and no explanation, see the [setup checklist](setup.md).
+
 ## 1. Install a harness
 
 We primarily use [Claude Code](https://code.claude.com/docs/en/setup). Other harnesses are covered on the [harnesses](concepts/harnesses.md) page; the setup below is Claude Code specific unless noted.
