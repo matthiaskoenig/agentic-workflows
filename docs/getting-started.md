@@ -65,7 +65,7 @@ Add `CLAUDE.local.md` to `.gitignore` for personal, per-project notes.
 4. Approve the design, let the agent implement with tests, and review the diff.
 5. Run `/clear` before starting the next task.
 
-That is the whole loop. The [development loop](best-practices/index.md) page goes through each step in detail.
+That is the whole loop. The [development loop](best-practices/index.md) page goes through each step in detail, and [Claude Code commands](concepts/claude-code-commands.md) lists the slash commands you will use along the way.
 
 ## Onboarding checklist
 

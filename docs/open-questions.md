@@ -82,6 +82,18 @@ Things we have not settled yet. Each entry says what we know, what is open, and 
 
 **Next step.** Set up a second configuration directory, note what has to be duplicated, and write the recipe on the harnesses page.
 
+## One harness for all models
+
+**What we know.** We use Claude Code for nearly everything and Codex much less, mostly for second opinions. Each ties us to one vendor's models, so switching models means switching tools, commands, skills, hooks and permissions. OpenCode and pi are provider-agnostic and read the same `AGENTS.md`; both are installed and in an evaluation phase. See [harnesses](concepts/harnesses.md#harnesses-we-use).
+
+**Open.**
+
+- Whether OpenCode or pi with Claude models matches Claude Code on real tasks: plan quality, tool use, permission handling, and how much of our plugins and skills carry over.
+- Whether the same harness can run GPT and open-weight models well enough that Codex and a separate local setup become unnecessary.
+- What we would lose: Claude Code specifics such as bundled skills, worktrees, subagents and the VS Code extension, see [Claude Code commands](concepts/claude-code-commands.md).
+
+**Next step.** Run the same three tasks, one design, one bug fix, one review, through Claude Code, OpenCode and pi with the same Claude model, and record the differences here.
+
 ## Tools mentioned but not yet evaluated
 
 - **treehouse**, a git worktree helper. Where it fits next to the `using-git-worktrees` skill. See [orchestration](concepts/orchestration.md).

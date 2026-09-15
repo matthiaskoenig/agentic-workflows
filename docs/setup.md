@@ -51,6 +51,17 @@ npx skills add JuliusBrussee/caveman -g                      # terse responses, 
 
 What each does: [Skills](concepts/skills.md).
 
+Code intelligence, so the agent sees type errors after every edit and navigates by definition instead of grep. The binary first, then the plugin:
+
+```bash
+uv tool install pyright                                      # or: npm install -g pyright
+claude plugin install pyright-lsp@claude-plugins-official
+npm install -g typescript-language-server typescript
+claude plugin install typescript-lsp@claude-plugins-official
+```
+
+Why and how to check it works: [Code intelligence](tooling.md#code-intelligence).
+
 ### Command line tools
 
 | Install | Command | Purpose |
@@ -81,6 +92,7 @@ Why these: [Token maxing](best-practices/context-management.md).
 - [ ] VS Code extensions installed
 - [ ] `~/AGENTS.md` written and symlinked to `~/.claude/CLAUDE.md`
 - [ ] `superpowers` and `humanizer` installed
+- [ ] `pyright-lsp` and `typescript-lsp` installed with their language servers
 - [ ] `uv`, `gh` (authenticated), Node.js
 - [ ] tmux or herdr for sessions that outlive the terminal
 

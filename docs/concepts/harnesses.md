@@ -23,10 +23,12 @@ flowchart LR
 
 | Harness | Vendor / model | Docs | Notes |
 |---------|----------------|------|-------|
-| **Claude Code** | Anthropic, Claude models | [code.claude.com](https://code.claude.com/docs/en/setup) | Our default. Plugins, skills, hooks, subagents, worktrees. |
-| **Codex CLI** | OpenAI, GPT models | [Codex CLI](https://learn.chatgpt.com/docs/codex/cli#getting-started) | Used for second opinions and comparison. |
-| **OpenCode** | Open source, any model | [opencode.ai](https://opencode.ai/) | Provider-agnostic terminal agent. |
-| **pi** | Open source | [pi.dev](https://pi.dev/docs/latest) | Minimal, scriptable harness. |
+| **Claude Code** | Anthropic, Claude models | [code.claude.com](https://code.claude.com/docs/en/setup) | Our main harness, used for nearly all daily work. Plugins, skills, hooks, subagents, worktrees. |
+| **Codex CLI** | OpenAI, GPT models | [Codex CLI](https://learn.chatgpt.com/docs/codex/cli#getting-started) | Used much less, for second opinions and comparison. |
+| **OpenCode** | Open source, any model | [opencode.ai](https://opencode.ai/) | Under evaluation. Provider-agnostic terminal agent. |
+| **pi** | Open source, any model | [pi.dev](https://pi.dev/docs/latest) | Under evaluation. Minimal, scriptable harness. |
+
+In practice this means Claude Code for almost everything and Codex now and then. OpenCode and pi are in an evaluation phase, because ideally we want **one harness for all models**: the same commands, skills, hooks and permissions whether the model behind it is Claude, GPT or an open-weight model on our own server. Claude Code and Codex each tie us to one vendor, so a provider-agnostic harness that matches them in quality would remove the need to switch tools when we switch models. Until one does, Claude Code stays the default.
 
 All four read a project-level instruction file. Claude Code reads `CLAUDE.md`, the others read `AGENTS.md`. Keeping one file and symlinking the other is how we avoid drift (see [instruction files](instruction-files.md)).
 
@@ -72,19 +74,16 @@ Different harnesses expose the same ideas under different names. The concepts th
 
 ## Claude Code specifics worth knowing
 
-- `/init` generates a first `CLAUDE.md` from the codebase.
-- `/context` shows what is loaded and how much of the window is used.
-- `/clear` resets the conversation. Use it between tasks.
-- `/memory` opens the instruction and auto-memory files.
-- `/plugin install <name>` installs a plugin from a marketplace.
-- Plan mode lets the agent read and design without editing anything.
+Claude Code is steered with slash commands: `/init` for a first `CLAUDE.md`, `/context` and `/clear` for the context window, `/model` for the model, plan mode for designing without editing. The [Claude Code commands](claude-code-commands.md) page lists the ones we use and links to the documentation of each.
 
 ## Choosing between harnesses
 
-Use Claude Code by default. Reach for a second harness when:
+Use Claude Code by default. Reach for Codex when:
 
 - you want an independent review of a design or a diff from a different model,
 - a task is blocked on a model-specific weakness and you want to compare,
 - you are evaluating a new model release.
+
+Reach for OpenCode or pi when you evaluate them, or when a task needs a model that neither Claude Code nor Codex can run, such as a local model through Ollama, see [models](models.md#local-models). Record what you learn on the [open questions](../open-questions.md) page so the evaluation converges.
 
 Because instruction files and most skills are plain markdown, switching costs almost nothing. The investment in `AGENTS.md` and skills carries over.
