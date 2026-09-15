@@ -1,0 +1,31 @@
+line-length = 88
+indent-width = 4
+# oldest supported version, see `project.requires-python`
+target-version = "py312"
+
+# the code blocks of the documentation are examples, not source
+exclude = ["docs", "site", "release-notes"]
+
+[lint]
+# Pyflakes (F) and a subset of pycodestyle (E), plus:
+#   W  warnings, I import sorting, D docstrings (google), UP pyupgrade,
+#   B bugbear, C4 comprehensions, SIM simplifications, RET returns,
+#   G logging format, PIE misc, RUF ruff specific
+select = [
+    "E4", "E7", "E9", "F", "W", "I", "D", "UP", "B", "C4", "SIM", "RET", "G", "PIE", "RUF",
+]
+ignore = [
+    # names such as `König` are not ambiguous unicode, they are german
+    "RUF001", "RUF002", "RUF003",
+]
+fixable = ["ALL"]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[lint.pydocstyle]
+convention = "google"
+
+[format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
