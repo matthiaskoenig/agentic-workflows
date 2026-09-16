@@ -73,14 +73,19 @@ A good skill is:
 
 ```mermaid
 flowchart TD
-    Q1{Must it happen every time,<br/>whatever the model decides?} -->|yes| HOOK[Harness hook]
-    Q1 -->|no| Q2{Needed in every session?}
-    Q2 -->|yes| Q3{Only for some files?}
+    Q1{Must always run?} -->|yes| HOOK[Harness hook]
+    Q1 -->|no| Q2{Every session?}
+    Q2 -->|yes| Q3{Only some files?}
     Q3 -->|yes| RULE[".claude/rules/ with paths"]
     Q3 -->|no| AGENTS["AGENTS.md / CLAUDE.md"]
-    Q2 -->|no| Q4{A procedure for a kind of task?}
+    Q2 -->|no| Q4{A procedure?}
     Q4 -->|yes| SKILL[Skill]
     Q4 -->|no| PROMPT[Say it in the prompt]
+    class Q1,Q2,Q3,Q4 decision
+    class HOOK,SKILL skill
+    class RULE,AGENTS context
+    class PROMPT human
+    --8<-- "mermaid-classes.mmd"
 ```
 
 | Need | Use |

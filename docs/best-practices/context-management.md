@@ -20,7 +20,12 @@ flowchart LR
     F -->|via subagent: only the answer| CONV
     F -->|via AXI, rtk, headroom: compressed| OUT
     PLAN[Plan and spec files] -->|read when needed| CONV
-    CLR[/clear/] -->|empties| CONV
+    CLR["/clear"] -->|empties| CONV
+    class W harness
+    class SYS,INS,CONV,OUT,PLAN context
+    class F artifact
+    class CLR skill
+    --8<-- "mermaid-classes.mmd"
 ```
 
 For a feel of how this plays out in a real session, watch the [interactive context window timeline](https://code.claude.com/docs/en/context-window) in the Claude Code docs. It replays a session from startup to compaction with token counts for each step, so you see what loads before you type, what each file read and hook adds, and how a subagent keeps large reads out of your window.

@@ -30,6 +30,31 @@ flowchart LR
     S[Skills] -.->|on demand| H
     O[Orchestration] -.->|many in parallel| H
     H -->|pull request| R([Reviewed change])
+    class You human
+    class H,O harness
+    class M model
+    class T tool
+    class I context
+    class S skill
+    class R artifact
+    --8<-- "mermaid-classes.mmd"
+```
+
+Every diagram on this site uses the same colors, so a concept looks the same wherever it appears:
+
+```mermaid
+flowchart LR
+    L1([People]) ~~~ L2[Harness] ~~~ L3[Model] ~~~ L4[Context and instruction files]
+    L5[Skills, hooks, commands] ~~~ L6[Tools and checks] ~~~ L7([Results and artifacts]) ~~~ L8{Decisions}
+    class L1 human
+    class L2 harness
+    class L3 model
+    class L4 context
+    class L5 skill
+    class L6 tool
+    class L7 artifact
+    class L8 decision
+    --8<-- "mermaid-classes.mmd"
 ```
 
 New to agentic coding altogether? Read the [introduction](introduction.md) first: what changes when you move from autocomplete and chat to an agent, the six concepts that matter, and a 90-minute self-study sequence.

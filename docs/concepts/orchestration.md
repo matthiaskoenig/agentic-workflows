@@ -103,19 +103,24 @@ The plan file is what makes this safe: the agent has a written definition of don
 
 ```mermaid
 flowchart LR
-    You --> FM[First mate agent]
+    You([You]) --> FM[First mate agent]
     FM --> A1[Agent 1<br/>worktree A]
     FM --> A2[Agent 2<br/>worktree B]
     FM --> A3[Agent 3<br/>worktree C]
     A1 --> PR1[PR]
     A2 --> PR2[PR]
     A3 --> R[Report]
-    subgraph herdr / tmux
+    subgraph H[herdr / tmux]
         FM
         A1
         A2
         A3
     end
+    class You human
+    class H tool
+    class FM,A1,A2,A3 harness
+    class PR1,PR2,R artifact
+    --8<-- "mermaid-classes.mmd"
 ```
 
 - **herdr or tmux** keeps everything alive.

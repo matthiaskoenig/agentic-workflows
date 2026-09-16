@@ -17,6 +17,13 @@ flowchart LR
     P -->|denied| U
     T -->|result| C
     M -->|no more tool calls| A([Answer])
+    class U human
+    class C context
+    class M model
+    class P decision
+    class T tool
+    class A artifact
+    --8<-- "mermaid-classes.mmd"
 ```
 
 ## Harnesses we use
