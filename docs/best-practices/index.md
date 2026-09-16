@@ -54,6 +54,13 @@ Two layers:
 
 When feedback comes back, the `receiving-code-review` skill makes the agent verify each point instead of agreeing blindly.
 
+Who has to review depends on the kind of change:
+
+- **Critical code and new features** are reviewed by a human before they land. At the latest this happens when the maintainer merges the pull request. An agent never merges these on its own.
+- **Patches and bug fixes** can be merged without a human reading the diff, provided the tests cover the behavior: a reproduction test for the bug and a green check run. A fix without such a test is reviewed like a feature.
+
+The distinction follows where the risk is. A new feature changes what the system does, and a test written by the same agent only proves that the agent's understanding is consistent with itself. A bug fix comes with an independent statement of the expected behavior, the bug report, and the reproduction test pins it down.
+
 ## 7. Merge and reset
 
 Squash or merge, delete the worktree, `/clear`, next task.
@@ -63,7 +70,7 @@ Squash or merge, delete the worktree, `/clear`, next task.
 | Task | Brainstorm | Plan file | TDD | Review |
 |------|------------|-----------|-----|--------|
 | Typo, config tweak | Two sentences in chat | No | If testable | Agent |
-| Bug fix | Reproduce first, then short design | No | Yes, reproduction test | Agent + human |
+| Bug fix | Reproduce first, then short design | No | Yes, reproduction test | Agent, human only if the tests do not cover it |
 | Feature in existing flow | Questions, short design in chat | Optional | Yes | Agent + human |
 | New subsystem or project | Full: questions, approaches, spec | Yes | Yes | Agent + human, per step |
 
