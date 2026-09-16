@@ -74,11 +74,11 @@ flowchart LR
 1. Branch off `main`: `git switch -c <topic>`.
 2. Commit, push, open a pull request. With the GitHub CLI: `gh pr create --fill`.
 3. Wait for `build` to pass. Fix and push again if it fails.
-4. Resolve review threads. Squash-merge, or enable auto-merge and let GitHub do it.
+4. Resolve review threads. Enable auto-merge with `gh pr merge --squash --auto --delete-branch` and let GitHub merge when the checks are green. No manual review is required.
 5. The branch is deleted automatically after the merge.
 
 !!! warning "What agents must know"
-    An agent working in this repository cannot push to `main`. Instruct it to work on a branch and open a pull request. The `CLAUDE.md` of this repository says so, and the `finishing-a-development-branch` skill of `superpowers` asks before merging.
+    An agent working in this repository cannot push to `main`. Instruct it to work on a branch, open a pull request and enable auto-merge. The `CLAUDE.md` of this repository says so.
 
 ## Adding a required check
 

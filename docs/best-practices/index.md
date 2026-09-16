@@ -56,8 +56,10 @@ When feedback comes back, the `receiving-code-review` skill makes the agent veri
 
 Who has to review depends on the kind of change:
 
-- **Critical code and new features** are reviewed by a human before they land. At the latest this happens when the maintainer merges the pull request. An agent never merges these on its own.
+- **Critical code and new features** are reviewed by a human. At the latest this happens when the maintainer reads the pull request.
 - **Patches and bug fixes** can be merged without a human reading the diff, provided the tests cover the behavior: a reproduction test for the bug and a green check run. A fix without such a test is reviewed like a feature.
+
+The merge itself is not gated on a manual review. An agent opens the pull request, enables auto-merge, and the change lands when the required checks pass. See [repository policies](repository-policies.md).
 
 The distinction follows where the risk is. A new feature changes what the system does, and a test written by the same agent only proves that the agent's understanding is consistent with itself. A bug fix comes with an independent statement of the expected behavior, the bug report, and the reproduction test pins it down.
 
