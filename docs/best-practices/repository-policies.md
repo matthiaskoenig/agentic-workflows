@@ -21,7 +21,7 @@ This page documents the policy as it is applied to this repository. Library repo
 | No force push, no deletion | `main` cannot be rewritten or removed. |
 | No bypass | The rule set has no bypass actors. It applies to the maintainer as well. |
 
-The ruleset does not require an approving review. On a personal repository a ruleset cannot ask for an approval from somebody else only, and requiring one would block the pull requests of the maintainer, who cannot approve their own. The maintainer is the code owner (`.github/CODEOWNERS`) and is requested for review on every pull request. Once a second person has write access, an approving review of a code owner can be required.
+The ruleset does not require an approving review. On a personal repository a ruleset cannot ask for an approval from somebody else only, and requiring one would block the pull requests of the maintainer, who cannot approve their own. The maintainer is the code owner (`.github/CODEOWNERS`) and is requested for review on every pull request. Once a second person has write access, an approving review of a code owner can be required. Which changes need a human review before the merge is a working rule rather than a ruleset, see [Review](index.md#6-review).
 
 ## Repository settings
 
