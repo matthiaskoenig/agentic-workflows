@@ -14,6 +14,10 @@ flowchart LR
     ANY --> AN
     ANY --> OA
     ANY --> OL[(Ollama on the GPU server:<br/>open-weight models)]
+    class CC,CX,OC harness
+    class AN,OA,OL model
+    class ANY decision
+    --8<-- "mermaid-classes.mmd"
 ```
 
 ## Hosted models we use

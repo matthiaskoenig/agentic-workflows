@@ -53,6 +53,9 @@ flowchart TB
     P["./CLAUDE.md, symlink to ./AGENTS.md<br/>project: shared via git"] --> L
     L["./CLAUDE.local.md<br/>personal: gitignored"] --> CTX([Context of every session])
     N["sub/dir/CLAUDE.md"] -.->|when files there are read| CTX
+    class G,R,P,L,N context
+    class CTX harness
+    --8<-- "mermaid-classes.mmd"
 ```
 
 ## Our global template

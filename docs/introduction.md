@@ -21,6 +21,9 @@ With an agent you stop dictating solutions. You give it a goal and the means to 
 ```mermaid
 flowchart LR
     A[Autocomplete<br/>suggests code] --> C[Chat<br/>tells you what to do] --> G[Agent<br/>inspects, edits, runs, verifies]
+    class A,C model
+    class G harness
+    --8<-- "mermaid-classes.mmd"
 ```
 
 ## The loop
@@ -31,13 +34,18 @@ Every agent, whatever the harness, runs the same loop:
 
 ```mermaid
 flowchart LR
-    G([Goal]) --> I[Inspect context]
+    G([Goal]) --> I[Inspect<br/>context]
     I --> P[Plan]
-    P --> A[Act with tools]
-    A --> O[Observe results]
+    P --> A[Act with<br/>tools]
+    A --> O[Observe<br/>results]
     O --> V{Verified?}
     V -->|no| P
-    V -->|yes| D([Done: review the diff])
+    V -->|yes| D([Done:<br/>review the diff])
+    class G,D human
+    class I,P,O harness
+    class A tool
+    class V decision
+    --8<-- "mermaid-classes.mmd"
 ```
 
 The model decides what to do next; the [harness](concepts/harnesses.md) runs the tools and shows the results. Quality comes from what the loop can see (the repository, the instruction file) and from what it can check (tests, lint, types), not from the prompt alone.

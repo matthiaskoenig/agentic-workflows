@@ -28,6 +28,7 @@ GitHub Pages is served from the `github-pages` environment; one-time setup in th
 - Every resource link needs one sentence on why it is worth the time.
 - Never hard-wrap markdown text. Each paragraph, list item and quote line stays on one line; we soft-wrap in the editor. Only code blocks and tables have their own line structure.
 - Keep pages under roughly 300 lines. Split by topic instead of growing a page.
+- Diagrams are mermaid flowcharts. Give every node a class from `docs/includes/mermaid-classes.mmd` (human, harness, model, context, skill, tool, artifact, decision) and end the diagram with `--8<-- "mermaid-classes.mmd"`; the legend is on the home page.
 - Run `uv run pytest` before finishing; it builds the site strictly and checks nav, links and the writing rules. A failure blocks the pull request.
 
 ## Git

@@ -58,14 +58,17 @@ The script updates rulesets that exist, creates missing ones, and sets the repos
 
 ```mermaid
 flowchart LR
-    B[Branch off main] --> C[Commits] --> PR[Pull request]
-    PR --> CH{build, tests,<br/>ruff, ty green?}
+    B[Branch<br/>off main] --> C[Commits] --> PR[Pull<br/>request]
+    PR --> CH{Checks<br/>green?}
     CH -->|no| C
-    CH -->|yes| RV{Threads resolved?}
+    CH -->|yes| RV{Threads<br/>resolved?}
     RV -->|no| C
-    RV -->|yes| M[Squash or rebase merge]
-    M --> D[Branch deleted]
-    M --> T[Tag x.y.z] --> R[GitHub release<br/>from release-notes/x.y.z.md]
+    RV -->|yes| M[Squash or<br/>rebase merge]
+    M --> D[Branch<br/>deleted]
+    M --> T[Tag<br/>x.y.z] --> R[GitHub release<br/>from the release note]
+    class B,C,PR,M,D,T,R artifact
+    class CH,RV decision
+    --8<-- "mermaid-classes.mmd"
 ```
 
 1. Branch off `main`: `git switch -c <topic>`.

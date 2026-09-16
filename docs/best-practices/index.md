@@ -8,13 +8,17 @@ Every task, from a one-line fix to a new subsystem, goes through the same loop. 
 
 ```mermaid
 flowchart LR
-    C[/clear/] --> B[Brainstorm]
+    C["/clear"] --> B[Brainstorm]
     B --> P[Plan]
     P --> I[Implement<br/>with TDD]
     I --> V[Verify]
     V --> R[Review]
     R --> M[Merge]
     M --> C
+    class C,B,P,I,V skill
+    class R human
+    class M artifact
+    --8<-- "mermaid-classes.mmd"
 ```
 
 ## 1. Start clean

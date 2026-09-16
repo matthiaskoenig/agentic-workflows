@@ -58,6 +58,10 @@ Covered in detail on [token maxing](best-practices/context-management.md):
 - [rtk](https://github.com/rtk-ai/rtk) and [headroom](https://github.com/headroomlabs-ai/headroom) for output compression
 - [TOON](https://toonformat.dev/) for compact structured data
 
+## Browser
+
+[Claude in Chrome](https://claude.ai/chrome) connects Claude Code to your running Chrome, so the agent checks a page the way you would: open it, click through it, read the console, take a screenshot. Keep Chrome open in the background whenever the task touches a web page, otherwise the extension is not reachable and validation gets slower and less reliable. Installation is on the [setup checklist](setup.md#browser).
+
 ## Session management
 
 - [tmux](https://github.com/tmux/tmux) for several agents on one screen

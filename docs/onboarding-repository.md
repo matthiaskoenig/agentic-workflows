@@ -7,10 +7,23 @@ icon: lucide/folder-plus
 How to bring a repository to the point where an agent can work in it reliably. The same checklist applies to a new project and to an existing one you inherit; the difference is only how much of step one is needed. Budget half a day for an existing repository of moderate size. The investment is repaid on the first task, because every later session starts from a repository that explains itself.
 
 ```mermaid
-flowchart LR
-    E[1 Explore] --> A[2 AGENTS.md] --> T[3 Toolchain] --> B[4 Test baseline] --> CI[5 CI]
-    CI --> P[6 Policies] --> R[7 Release note, tag] --> D[8 Docs] --> F[9 First task]
-    F -->|corrections| A
+flowchart BT
+    %% BT with the corrections edge keeps Foundation on top, TB stacks the rows the other way round
+    subgraph S1[Foundation]
+        direction LR
+        E[1 Explore] --> A[2 AGENTS.md] --> T[3 Toolchain] --> B[4 Test baseline] --> CI[5 CI]
+    end
+    subgraph S2[Process]
+        direction LR
+        P[6 Policies] --> R[7 Release note, tag] --> D[8 Docs] --> F[9 First task]
+    end
+    S2 -->|corrections| S1
+    S1 --> S2
+    class E,F harness
+    class A context
+    class T,B,CI tool
+    class P,R,D artifact
+    --8<-- "mermaid-classes.mmd"
 ```
 
 The reference implementation of everything below is [sbmlutils](https://github.com/matthiaskoenig/sbmlutils); copy files from there instead of writing them from scratch.

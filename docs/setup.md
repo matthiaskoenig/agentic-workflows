@@ -17,6 +17,12 @@ flowchart LR
         R1[AGENTS.md and CLAUDE.md] --> R2[Toolchain] --> R3[Tests and CI] --> R4[Policies] --> R5[Release notes and docs]
     end
     C --> R
+    class C1,C5 harness
+    class C2,R1 context
+    class C3 skill
+    class C4,R2,R3 tool
+    class R4,R5 artifact
+    --8<-- "mermaid-classes.mmd"
 ```
 
 ## On your computer
@@ -80,11 +86,18 @@ Why these: [Token maxing](best-practices/context-management.md).
 
 | Install | Command | Page |
 |---------|---------|------|
-| tmux | package manager | [Orchestration](concepts/orchestration.md) |
+| Terminal multiplexer | package manager | [Orchestration](concepts/orchestration.md) |
 | [herdr](https://herdr.dev/) | `curl -fsSL https://herdr.dev/install.sh \| sh` | [Orchestration](concepts/orchestration.md) |
 | [firstmate](https://github.com/kunchenguid/firstmate) | `git clone https://github.com/kunchenguid/firstmate` | [Orchestration](concepts/orchestration.md) |
 | [OpenSuperWhisper](https://github.com/Starmel/OpenSuperWhisper) (macOS) | `brew install opensuperwhisper` | [Tooling](tooling.md#voice) |
 | [text2speech](https://github.com/matthiaskoenig/text2speech) (GPU server) | `git clone` then `uv sync` | [Tooling](tooling.md#voice) |
+
+### Browser
+
+Install [Claude in Chrome](https://claude.ai/chrome), the browser extension that lets Claude Code open pages, click, read the console and take screenshots in your own Chrome. Sign in to claude.ai with the same account as Claude Code and grant the extension access per site.
+
+!!! tip "Keep Chrome open in the background"
+    The extension only works while Chrome is running. Whenever the agent works on a homepage, a docs site or any other UI, start Google Chrome before you start the task and leave it open. The agent then validates every change in the real browser: it sees what you would see and gets a screenshot back in seconds. Without the browser it falls back to headless tooling and reading rendered HTML, which is slower and misses layout problems.
 
 ### Computer checklist
 
@@ -94,7 +107,8 @@ Why these: [Token maxing](best-practices/context-management.md).
 - [ ] `superpowers` and `humanizer` installed
 - [ ] `pyright-lsp` and `typescript-lsp` installed with their language servers
 - [ ] `uv`, `gh` (authenticated), Node.js
-- [ ] tmux or herdr for sessions that outlive the terminal
+- [ ] A terminal multiplexer or herdr for sessions that outlive the terminal
+- [ ] Claude in Chrome installed, and Chrome open whenever the agent works on a web page
 
 ## In a repository
 
