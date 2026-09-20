@@ -86,13 +86,17 @@ Why, the manual jdtls install on Linux and how to check it works: [Code intellig
 | Node.js | package manager | needed for the `npx` tools below |
 | [rtk](https://github.com/rtk-ai/rtk) (evaluating) | see repository, then `rtk init -g` | compress command output |
 
-The [AXI](https://axi.md/) tools need no install of their own, `npx -y <tool>` fetches them on first use. What the agent needs is the skill that tells it when to call the tool. Install each skill with `-g`, so it lands in your user-level skills and applies in every repository instead of only the current one:
+The [AXI](https://axi.md/) tools need two global installs. The binary, because our instruction files call the bare command, for example `gh-axi pr create`, and that fails with `command not found` when only `npx -y <tool>` is available. And the skill that tells the agent when to call the tool; `-g` puts it in your user-level skills, so it applies in every repository instead of only the current one:
 
 ```bash
+npm install -g gh-axi chrome-devtools-axi quota-axi
+
 npx skills add kunchenguid/gh-axi --skill gh-axi -g                            # GitHub for agents, token efficient
 npx skills add kunchenguid/chrome-devtools-axi --skill chrome-devtools-axi -g  # browser automation for agents
 npx skills add kunchenguid/quota-axi --skill quota-axi -g                      # plan quota per vendor
 ```
+
+With nvm the global binaries belong to one Node.js version. After `nvm install <version>`, run the `npm install -g` line again.
 
 Why these: [Token maxing](best-practices/context-management.md).
 

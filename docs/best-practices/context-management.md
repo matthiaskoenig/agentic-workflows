@@ -86,9 +86,11 @@ Delegate anything that reads many files or produces long output to a subagent. O
 | `lavish-axi` | Human review surfaces for agent-generated HTML | `npx -y lavish-axi` |
 | `quota-axi` | Local Claude, Copilot and Cursor quota tracking | `npx -y quota-axi` |
 
-`npx -y` fetches the tool on first use, so the tool itself needs no install. The agent still has to know the tool exists, and that is what the skill in each repository is for. Install the skills globally with `-g`, otherwise they only apply to the repository you ran the command in. The skill of `lavish-axi` is named `lavish`:
+`npx -y` fetches the tool on first use, which is enough to try it. For daily use install two things globally. The binary, because instruction files such as our `AGENTS.md` call the bare command `gh-axi`, and that only resolves after `npm install -g`. And the skill in each repository, which tells the agent that the tool exists and when to call it; without `-g` the skill only applies to the repository you ran the command in. The skill of `lavish-axi` is named `lavish`:
 
 ```bash
+npm install -g gh-axi chrome-devtools-axi lavish-axi quota-axi
+
 npx skills add kunchenguid/gh-axi --skill gh-axi -g
 npx skills add kunchenguid/chrome-devtools-axi --skill chrome-devtools-axi -g
 npx skills add kunchenguid/lavish-axi --skill lavish -g
