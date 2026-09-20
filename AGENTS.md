@@ -33,7 +33,7 @@ GitHub Pages is served from the `github-pages` environment; one-time setup in th
 
 ## Git
 
-- `main` is protected: no direct push, every change goes through a pull request whose `build`, `tests`, `ruff` and `ty` checks pass. Work on a branch, open a pull request with `gh pr create` and enable auto-merge with `gh pr merge --squash --auto --delete-branch`. The pull request merges when the checks pass, no manual review is required.
+- `main` is protected: no direct push, every change goes through a pull request whose `build`, `tests`, `ruff` and `ty` checks pass. Work on a branch, open a pull request with `gh-axi pr create --title <title> --body <text>` and enable auto-merge with `gh-axi pr merge <number> --squash --auto --delete-branch`. The pull request merges when the checks pass, no manual review is required.
 - Do not add agent co-author lines to commit messages.
 - Commit only when asked.
 - Changes are tracked in `release-notes/<version>.md`, one file per tagged release. A pull request that prepares a release adds the note.

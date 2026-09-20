@@ -71,7 +71,7 @@ See [orchestration](concepts/orchestration.md).
 
 ## Code intelligence
 
-Without a language server, the agent finds definitions and references with grep and learns about a type error only when it runs the type checker. [Code intelligence plugins](https://code.claude.com/docs/en/discover-plugins#code-intelligence) connect Claude Code to a Language Server Protocol server, the same machinery behind VS Code's code navigation. The agent then sees errors and warnings right after every edit and fixes them in the same turn, and it can jump to definitions, find references and trace call hierarchies instead of guessing from search results. The plugin page explains what the agent gains and lists the plugin and binary for each language.
+Without a language server, the agent finds definitions and references with grep and learns about a type error only when it runs the type checker. [Code intelligence plugins](https://code.claude.com/docs/en/discover-plugins#code-intelligence) connect Claude Code to a Language Server Protocol (LSP) server, the same machinery behind VS Code's code navigation. The agent then sees errors and warnings right after every edit and fixes them in the same turn, and it can jump to definitions, find references and trace call hierarchies instead of guessing from search results. The plugin page explains what the agent gains and lists the plugin and binary for each language.
 
 Two steps per language: install the language server binary yourself, then install the plugin. The plugin only wires the binary in, it does not install it.
 
@@ -83,9 +83,27 @@ claude plugin install pyright-lsp@claude-plugins-official
 # TypeScript and JavaScript
 npm install -g typescript-language-server typescript
 claude plugin install typescript-lsp@claude-plugins-official
+
+# C and C++: clangd
+sudo apt install clangd                    # macOS: brew install llvm, Fedora: dnf install clang-tools-extra
+claude plugin install clangd-lsp@claude-plugins-official
+
+# Java: Eclipse JDT.LS, needs a JDK 17 or later and python3 for the launcher
+brew install jdtls                         # macOS; on Linux use the manual install below
+claude plugin install jdtls-lsp@claude-plugins-official
 ```
 
-Nothing else to configure. In a session, a line such as `Found 3 new diagnostic issues in 2 files` means the server is working; press `Ctrl+O` to read the diagnostics yourself. If the `/plugin` Errors tab says `Executable not found in $PATH`, the binary is missing or not on the `PATH` that Claude Code sees. Cloud sessions do not start language servers, so this only helps locally.
+Most Linux distributions do not package jdtls. Download the archive, which has no top-level directory, extract it into its own directory and link the bundled launcher onto your `PATH`:
+
+```bash
+mkdir -p ~/.local/share/jdtls
+curl -fsSL https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz | tar xz -C ~/.local/share/jdtls
+ln -s ~/.local/share/jdtls/bin/jdtls ~/.local/bin/jdtls
+```
+
+Python and TypeScript need nothing else. clangd only understands a project once it knows the compile flags, usually from a `compile_commands.json` that the build system writes; the [clangd project setup guide](https://clangd.llvm.org/installation#project-setup) shows the one flag or tool that produces it for CMake and other build systems.
+
+In a session, a line such as `Found 3 new diagnostic issues in 2 files` means the server is working; press `Ctrl+O` to read the diagnostics yourself. If the `/plugin` Errors tab says `Executable not found in $PATH`, the binary is missing or not on the `PATH` that Claude Code sees. Cloud sessions do not start language servers, so this only helps locally.
 
 !!! tip
     If pyright or the TypeScript server is already installed, Claude Code may offer to install the matching plugin when you open a project. Accept it.
