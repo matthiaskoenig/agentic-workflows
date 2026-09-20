@@ -86,6 +86,15 @@ Delegate anything that reads many files or produces long output to a subagent. O
 | `lavish-axi` | Human review surfaces for agent-generated HTML | `npx -y lavish-axi` |
 | `quota-axi` | Local Claude, Copilot and Cursor quota tracking | `npx -y quota-axi` |
 
+`npx -y` fetches the tool on first use, so the tool itself needs no install. The agent still has to know the tool exists, and that is what the skill in each repository is for. Install the skills globally with `-g`, otherwise they only apply to the repository you ran the command in. The skill of `lavish-axi` is named `lavish`:
+
+```bash
+npx skills add kunchenguid/gh-axi --skill gh-axi -g
+npx skills add kunchenguid/chrome-devtools-axi --skill chrome-devtools-axi -g
+npx skills add kunchenguid/lavish-axi --skill lavish -g
+npx skills add kunchenguid/quota-axi --skill quota-axi -g
+```
+
 Prefer an AXI tool over an MCP server when one exists: the output is smaller and the tool description costs fewer tokens.
 
 For Python projects, the community tool [venv-axi](https://github.com/andyrids/venv-axi) follows the same principles: it reports the exact signatures of the packages installed in the project's virtual environment, at the pinned versions, so the agent checks an API instead of opening library source. It is a Python package, not an `npx` tool, and its command is spelled `venvaxi`:

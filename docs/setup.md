@@ -57,22 +57,22 @@ npx skills add JuliusBrussee/caveman -g                      # terse responses, 
 
 What each does: [Skills](concepts/skills.md).
 
-Code intelligence, so the agent sees type errors after every edit and navigates by definition instead of grep. The binary first, then the plugin:
+Code intelligence, so the agent sees type errors after every edit and navigates by definition instead of grep. The binary first, then the plugin. Both are global: the binary goes on your `PATH` and `--scope user` enables the plugin in every repository:
 
 ```bash
-uv tool install pyright                                      # or: npm install -g pyright
-claude plugin install pyright-lsp@claude-plugins-official
+npm install -g pyright
+claude plugin install pyright-lsp@claude-plugins-official --scope user
 npm install -g typescript-language-server typescript
-claude plugin install typescript-lsp@claude-plugins-official
+claude plugin install typescript-lsp@claude-plugins-official --scope user
 ```
 
 Only if you work in these languages:
 
 ```bash
 sudo apt install clangd                                      # C and C++; macOS: brew install llvm
-claude plugin install clangd-lsp@claude-plugins-official
+claude plugin install clangd-lsp@claude-plugins-official --scope user
 brew install jdtls                                           # Java; Linux needs the manual install
-claude plugin install jdtls-lsp@claude-plugins-official
+claude plugin install jdtls-lsp@claude-plugins-official --scope user
 ```
 
 Why, the manual jdtls install on Linux and how to check it works: [Code intelligence](tooling.md#code-intelligence).
@@ -83,11 +83,16 @@ Why, the manual jdtls install on Linux and how to check it works: [Code intellig
 |---------|---------|---------|
 | [uv](https://docs.astral.sh/uv/) | `curl -LsSf https://astral.sh/uv/install.sh \| sh` | Python environments, `uv run`, `uvx` |
 | [GitHub CLI](https://cli.github.com) | package manager, then `gh auth login` | pull requests, rulesets, releases |
-| Node.js | package manager | needed for `npx` tools below |
-| [gh-axi](https://axi.md/) | `npx -y gh-axi` | GitHub for agents, token efficient |
-| [chrome-devtools-axi](https://axi.md/) | `npx -y chrome-devtools-axi` | browser automation for agents |
-| [quota-axi](https://axi.md/) | `npx -y quota-axi` | plan quota per vendor |
+| Node.js | package manager | needed for the `npx` tools below |
 | [rtk](https://github.com/rtk-ai/rtk) (evaluating) | see repository, then `rtk init -g` | compress command output |
+
+The [AXI](https://axi.md/) tools need no install of their own, `npx -y <tool>` fetches them on first use. What the agent needs is the skill that tells it when to call the tool. Install each skill with `-g`, so it lands in your user-level skills and applies in every repository instead of only the current one:
+
+```bash
+npx skills add kunchenguid/gh-axi --skill gh-axi -g                            # GitHub for agents, token efficient
+npx skills add kunchenguid/chrome-devtools-axi --skill chrome-devtools-axi -g  # browser automation for agents
+npx skills add kunchenguid/quota-axi --skill quota-axi -g                      # plan quota per vendor
+```
 
 Why these: [Token maxing](best-practices/context-management.md).
 

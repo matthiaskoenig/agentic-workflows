@@ -73,24 +73,24 @@ See [orchestration](concepts/orchestration.md).
 
 Without a language server, the agent finds definitions and references with grep and learns about a type error only when it runs the type checker. [Code intelligence plugins](https://code.claude.com/docs/en/discover-plugins#code-intelligence) connect Claude Code to a Language Server Protocol (LSP) server, the same machinery behind VS Code's code navigation. The agent then sees errors and warnings right after every edit and fixes them in the same turn, and it can jump to definitions, find references and trace call hierarchies instead of guessing from search results. The plugin page explains what the agent gains and lists the plugin and binary for each language.
 
-Two steps per language: install the language server binary yourself, then install the plugin. The plugin only wires the binary in, it does not install it.
+Two steps per language: install the language server binary yourself, then install the plugin. The plugin only wires the binary in, it does not install it. Install both globally, so every repository gets code intelligence: the commands below put the binary on your `PATH`, and `--scope user` enables the plugin for your user instead of one project. `user` is the default scope, we spell it out so nobody picks `project` by accident.
 
 ```bash
 # Python: pyright
 uv tool install pyright                    # or: npm install -g pyright
-claude plugin install pyright-lsp@claude-plugins-official
+claude plugin install pyright-lsp@claude-plugins-official --scope user
 
 # TypeScript and JavaScript
 npm install -g typescript-language-server typescript
-claude plugin install typescript-lsp@claude-plugins-official
+claude plugin install typescript-lsp@claude-plugins-official --scope user
 
 # C and C++: clangd
 sudo apt install clangd                    # macOS: brew install llvm, Fedora: dnf install clang-tools-extra
-claude plugin install clangd-lsp@claude-plugins-official
+claude plugin install clangd-lsp@claude-plugins-official --scope user
 
 # Java: Eclipse JDT.LS, needs a JDK 17 or later and python3 for the launcher
 brew install jdtls                         # macOS; on Linux use the manual install below
-claude plugin install jdtls-lsp@claude-plugins-official
+claude plugin install jdtls-lsp@claude-plugins-official --scope user
 ```
 
 Most Linux distributions do not package jdtls. Download the archive, which has no top-level directory, extract it into its own directory and link the bundled launcher onto your `PATH`:
