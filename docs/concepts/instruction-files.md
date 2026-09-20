@@ -83,6 +83,19 @@ These are common instructions for my agents across all scenarios.
 * Apply the same high standard to engineering excellence: lint, test failures, and test
   flakiness. If you see one even if it is not caused by what you are working on right now,
   still get it fixed.
+
+## Token discipline
+* ALWAYS use the AXI tools and NEVER call their underlying CLIs directly: use `gh-axi` instead of `gh`, `chrome-devtools-axi` instead of `chrome-devtools`, `lavish-axi` instead of `lavish`, and `quota-axi` instead of `quota`.
+* Be concise. No recaps or summaries unless asked.
+* Pipe long output through head/tail/grep; never dump full logs.
+* grep before reading; read line ranges, not whole large files.
+* Use subagents for broad codebase exploration; return short summaries.
+
+## Code navigation
+* Find symbols via LSP/ctags/ast-grep before reading files; read only the relevant ranges.
+* Run tests, linters and type checkers in quiet/concise mode; stop at the first failure.
+* Use `rg -l` or `rg -c` before full `rg` output.
+* Check signatures with the language's doc tool (go doc, javap, .d.ts, venv-axi) instead of opening source.
 ```
 
 The [engineering standards](../best-practices/engineering-standards.md) page explains the reasoning behind each line.

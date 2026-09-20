@@ -36,11 +36,38 @@ The single most effective habit. Start every new task with an empty conversation
 
 Run `/context` at any time to see how full the window is and what is in it.
 
-## Rule 2: keep instruction files short
+## Rule 2: terse responses with caveman
+
+Every response the agent writes stays in the conversation and is re-read on each later turn, so filler costs tokens for the rest of the session. The [caveman](../concepts/skills.md#caveman) skill makes the agent drop articles, pleasantries and hedging while keeping code, commands, paths and error messages exact. Text that leaves the chat, such as code, commit messages and documentation, is still written in normal prose.
+
+Install it as a Claude Code plugin, which also adds a session start hook so the mode is active in every new session:
+
+```bash
+claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
+```
+
+For other harnesses, install the skill alone:
+
+```bash
+npx skills add JuliusBrussee/caveman -g
+```
+
+Then steer it from the prompt:
+
+| Command | Effect |
+|---------|--------|
+| `/caveman` | Turn on at the default level `full` |
+| `/caveman lite` | No filler or hedging, full sentences stay |
+| `/caveman ultra` | Maximum compression |
+| `/caveman off` | Back to normal prose; typing "normal mode" does the same |
+
+With the plugin the command is namespaced, so `/caveman:caveman full` works too. The level persists until you change it or the session ends. Turn it off when you want the agent to explain something in depth or when you are reviewing prose together. The caveman [install guide](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) lists the commands for 30+ other agents, worth a look if you do not use Claude Code.
+
+## Rule 3: keep instruction files short
 
 Instruction files are loaded on every turn. Two hundred lines of `CLAUDE.md` is two hundred lines the model re-reads each time. See [instruction files](../concepts/instruction-files.md) for what to keep and what to move into skills or path-scoped rules.
 
-## Rule 3: keep tool output out of the window
+## Rule 4: keep tool output out of the window
 
 Most context is consumed by tool results, not by your prompts. Three ways to cut it:
 
@@ -56,10 +83,17 @@ Delegate anything that reads many files or produces long output to a subagent. O
 |------|---------|--------|
 | `gh-axi` | GitHub issues, PRs, workflows | `npx -y gh-axi` |
 | `chrome-devtools-axi` | Browser automation with combined operations | `npx -y chrome-devtools-axi` |
-| `lavish-axi` | Human review surfaces for agent-generated HTML | see [orchestration](../concepts/orchestration.md) |
+| `lavish-axi` | Human review surfaces for agent-generated HTML | `npx -y lavish-axi` |
 | `quota-axi` | Local Claude, Copilot and Cursor quota tracking | `npx -y quota-axi` |
 
 Prefer an AXI tool over an MCP server when one exists: the output is smaller and the tool description costs fewer tokens.
+
+For Python projects, the community tool [venv-axi](https://github.com/andyrids/venv-axi) follows the same principles: it reports the exact signatures of the packages installed in the project's virtual environment, at the pinned versions, so the agent checks an API instead of opening library source. It is a Python package, not an `npx` tool, and its command is spelled `venvaxi`:
+
+```bash
+uv add --dev venv-axi
+uv run venvaxi setup      # registers the MCP server entries and installs a skill under .claude/skills/
+```
 
 ### Output compression
 
@@ -68,13 +102,9 @@ Prefer an AXI tool over an MCP server when one exists: the output is smaller and
 
 Both are under evaluation. Try one, measure with `/context`, and report back.
 
-## Rule 4: compact data formats
+## Rule 5: compact data formats
 
 When you pass structured data to the model, JSON is verbose. [TOON](https://toonformat.dev/) (Token-Oriented Object Notation) encodes the same data model with indentation instead of braces and minimal quoting. Benchmarks report roughly 40 percent fewer tokens at the same retrieval accuracy. Use it for tables and records you hand to the agent in bulk.
-
-## Rule 5: terse responses when you do not need prose
-
-The [caveman](../concepts/skills.md#caveman) skill strips filler from agent responses while keeping code, commands and errors. On long sessions this adds up. Turn it on when you are working, off when you are writing documentation.
 
 ## Rule 6: plan in files, not in chat
 
@@ -86,12 +116,13 @@ When the window fills, the harness summarises older turns. The project-root `CLA
 
 ## Further reading
 
-The official guide on [reducing token usage](https://code.claude.com/docs/en/costs#reduce-token-usage) covers the same ground from the vendor side and adds levers this page does not: picking the model per task, tuning extended thinking, cutting MCP server overhead, and code intelligence plugins for typed languages. Its sections on moving `CLAUDE.md` content into skills and delegating verbose work to subagents are the official version of rules 2 and 3.
+The official guide on [reducing token usage](https://code.claude.com/docs/en/costs#reduce-token-usage) covers the same ground from the vendor side and adds levers this page does not: picking the model per task, tuning extended thinking, cutting MCP server overhead, and code intelligence plugins for typed languages. Its sections on moving `CLAUDE.md` content into skills and delegating verbose work to subagents are the official version of rules 3 and 4.
 
 ## Checklist
 
 - [ ] `/clear` at the start of each task
 - [ ] `/context` checked when the agent starts to drift
+- [ ] caveman installed and on while coding
 - [ ] Instruction files under 200 lines
 - [ ] Long searches and reviews delegated to subagents
 - [ ] AXI CLIs preferred over MCP for GitHub and browser

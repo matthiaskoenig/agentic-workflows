@@ -66,7 +66,16 @@ npm install -g typescript-language-server typescript
 claude plugin install typescript-lsp@claude-plugins-official
 ```
 
-Why and how to check it works: [Code intelligence](tooling.md#code-intelligence).
+Only if you work in these languages:
+
+```bash
+sudo apt install clangd                                      # C and C++; macOS: brew install llvm
+claude plugin install clangd-lsp@claude-plugins-official
+brew install jdtls                                           # Java; Linux needs the manual install
+claude plugin install jdtls-lsp@claude-plugins-official
+```
+
+Why, the manual jdtls install on Linux and how to check it works: [Code intelligence](tooling.md#code-intelligence).
 
 ### Command line tools
 
