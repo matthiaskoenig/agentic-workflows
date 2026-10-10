@@ -28,7 +28,7 @@ jobs:
         with:
           enable-cache: true
           cache-python: true
-      - run: uv sync
+      - run: uv sync --locked
       - run: uv run ruff check --output-format=github
       - run: uv run ruff format --check --diff
 
@@ -45,7 +45,7 @@ jobs:
         with:
           enable-cache: true
           cache-python: true
-      - run: uv sync
+      - run: uv sync --locked
       - run: uv run ty check
         env:
           TY_OUTPUT_FORMAT: github
@@ -63,5 +63,7 @@ jobs:
         with:
           enable-cache: true
           cache-python: true
-      - run: uv sync
-      - run: uv run pytest
+      - run: uv sync --locked
+      # the suite is one site build, which a session fixture shares between the
+      # tests, so it runs serially; the durations keep slow tests visible
+      - run: uv run pytest --durations=15
